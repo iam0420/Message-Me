@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+  data:
+    redis:
+      host: localhost
+      port: 6379
+app:
+  jwt:
+    secret: testSecretKeyForTestingThatIsLongEnoughForHMACSHA256AlgorithmTest123456!
+    expiration: 86400000
+    refresh-expiration: 604800000
+  file:
+    upload-dir: ./test-uploads

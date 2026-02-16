@@ -1,0 +1,43 @@
+server:
+  port: 8080
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/chatapp
+    username: chatuser
+    password: chatpass123
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 6000ms
+
+app:
+  jwt:
+    secret: myVeryLongAndSecureSecretKeyForJWTTokenGenerationThatIsAtLeast256BitsLong2024ChatApp!
+    expiration: 86400000
+    refresh-expiration: 604800000
+  file:
+    upload-dir: ./uploads
+
+logging:
+  level:
+    com.chatapp: DEBUG
