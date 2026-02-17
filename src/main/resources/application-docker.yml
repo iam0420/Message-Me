@@ -1,9 +1,44 @@
 spring:
   datasource:
-    url: jdbc:postgresql://postgres:5432/chatapp
-    username: chatuser
-    password: chatpass123
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/chatapp}
+    username: ${SPRING_DATASOURCE_USERNAME:chatuser}
+    password: ${SPRING_DATASOURCE_PASSWORD:chatpass123}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    # DO NOT set dialect manually - let Hibernate auto-detect
+
   data:
     redis:
-      host: redis
-      port: 6379
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+      password: ${SPRING_DATA_REDIS_PASSWORD:}
+      timeout: 6000ms
+
+server:
+  port: ${PORT:8080}
+
+app:
+  jwt:
+    secret: ${APP_JWT_SECRET:myVeryLongAndSecureSecretKeyForJWTTokenGenerationThatIsAtLeast256BitsLong2024ChatApp!}
+    expiration: 86400000
+    refresh-expiration: 604800000
+  file:
+    upload-dir: ${UPLOAD_DIR:./uploads}
+
+logging:
+  level:
+    com.chatapp: INFO
+    org.hibernate.SQL: WARN
